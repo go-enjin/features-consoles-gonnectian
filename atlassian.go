@@ -38,7 +38,10 @@ import (
 
 var _consoleAtlassian *Console
 
-var _ feature.Console = (*Console)(nil)
+var (
+	_ feature.Console     = (*Console)(nil)
+	_ feature.MakeConsole = (*Console)(nil)
+)
 
 const (
 	Tag     feature.Tag = "AtlasGonnect"
@@ -58,11 +61,7 @@ type Console struct {
 	vbox   ctk.VBox
 }
 
-type MakeConsole interface {
-	feature.MakeConsole
-}
-
-func New() MakeConsole {
+func New() feature.MakeConsole {
 	if _consoleAtlassian == nil {
 		_consoleAtlassian = new(Console)
 		_consoleAtlassian.Init(_consoleAtlassian)
