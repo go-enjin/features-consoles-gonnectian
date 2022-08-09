@@ -204,19 +204,44 @@ func (f *Console) Refresh() {
 
 		hbox := ctk.NewHBox(false, 1)
 		hbox.Show()
-		hbox.SetSizeRequest(-1, 1)
+		hbox.SetSizeRequest(-1, 3)
 		f.vbox.PackStart(hbox, false, false, 0)
 
-		tl := ctk.NewLabel(fmt.Sprintf("[%d] %v [debug=%v]", idx+1, tenant.BaseURL, debug))
+		tenantText := fmt.Sprintf("[%d] %v", idx+1, tenant.BaseURL)
+		tenantText += fmt.Sprintf("\n (c=%v / u=%v)", tenant.CreatedAt.Format("2006-01-02 15:04 MST"), tenant.UpdatedAt.Format("2006-01-02 15:04 MST"))
+		if tenant.AddonInstalled {
+			tenantText += "\n  (installed, "
+		} else {
+			tenantText += "\n  (not installed, "
+		}
+		if debug == "true" {
+			tenantText += " debugging enabled)"
+		} else {
+			tenantText += " debugging disabled)"
+		}
+
+		tl := ctk.NewLabel(tenantText)
 		tl.SetJustify(cenums.JUSTIFY_LEFT)
-		tl.SetSingleLineMode(true)
-		tl.SetSizeRequest(-1, 1) // toggle-width box-child-space
+		tl.SetSingleLineMode(false)
+		tl.SetLineWrap(false)
+		tl.SetLineWrapMode(cenums.WRAP_NONE)
+		tl.SetSizeRequest(-1, 4) // toggle-width box-child-space
 		tl.Show()
 		hbox.PackStart(tl, true, true, 0)
 
-		bt := ctk.NewButtonWithLabel("Toggle Debug")
+		var buttonLabel, tooltipText string
+		if debug == "true" {
+			buttonLabel = "Disable Debug"
+			tooltipText = "Click to disable per-tenant UI debugging"
+		} else {
+			buttonLabel = "Enable Debug"
+			tooltipText = "Click to enable per-tenant UI debugging"
+		}
+		bt := ctk.NewButtonWithLabel(buttonLabel)
 		bt.Show()
-		bt.SetSizeRequest(-1, 1)
+		bt.SetSizeRequest(20, 3)
+		bt.SetTooltipText(tooltipText)
+		bt.SetHasTooltip(true)
 		bt.Connect(ctk.SignalActivate, "atlassian-console-activate-handler", f.toggleDebugHandler, tenant, ctx)
 		hbox.PackStart(bt, false, false, 0)
 	}
