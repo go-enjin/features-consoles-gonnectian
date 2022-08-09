@@ -25,6 +25,8 @@ import (
 	"github.com/go-curses/cdk/log"
 	"github.com/go-curses/ctk"
 	"github.com/go-curses/ctk/lib/enums"
+	"github.com/go-enjin/be/pkg/globals"
+	"github.com/urfave/cli/v2"
 	"gorm.io/datatypes"
 	"gorm.io/gorm"
 
@@ -46,6 +48,8 @@ const (
 
 type Console struct {
 	feature.CConsole
+
+	prefix string
 
 	db *gorm.DB
 
@@ -84,13 +88,21 @@ func (f *Console) Name() (name string) {
 }
 
 func (f *Console) Title() (title string) {
-	title = fmt.Sprintf("Atlassian Console (v%v)", Version)
+	if f.prefix != "" {
+		title = fmt.Sprintf("Atlas-Gonnect v%v (%v %v) [%v]", Version, globals.BinName, globals.Version, f.prefix)
+		return
+	}
+	title = fmt.Sprintf("Atlas-Gonnect v%v (%v %v)", Version, globals.BinName, globals.Version)
 	return
 }
 
 func (f *Console) Build(b feature.Buildable) (err error) {
 	log.DebugF("%v (v%v) build", Tag, Version)
 	return
+}
+
+func (f *Console) Setup(ctx *cli.Context) {
+	f.prefix = ctx.String("prefix")
 }
 
 func (f *Console) Prepare(app ctk.Application) {
