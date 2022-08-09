@@ -38,9 +38,11 @@ var _consoleAtlassian *Console
 
 var _ feature.Console = (*Console)(nil)
 
-const Tag feature.Tag = "AtlassianConsole"
-
-const Version = "0.1.0"
+const (
+	Tag     feature.Tag = "AtlasGonnect"
+	Name                = "atlas-gonnect"
+	Version             = "0.1.0"
+)
 
 type Console struct {
 	feature.CConsole
@@ -77,7 +79,7 @@ func (f *Console) Tag() (tag feature.Tag) {
 }
 
 func (f *Console) Name() (name string) {
-	name = "atlassian-console"
+	name = Name
 	return
 }
 
