@@ -143,7 +143,8 @@ func (f *Console) Startup(display cdk.Display) {
 }
 
 func (f *Console) Resized(w, h int) {
-
+	log.DebugF("refreshing on resized: %v, %v", w, h)
+	f.Refresh()
 }
 
 func (f *Console) Refresh() {
