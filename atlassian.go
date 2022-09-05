@@ -22,18 +22,23 @@ import (
 
 	"github.com/go-curses/cdk"
 	cenums "github.com/go-curses/cdk/lib/enums"
+	"github.com/go-curses/cdk/lib/paint"
 	"github.com/go-curses/cdk/log"
 	"github.com/go-curses/ctk"
 	"github.com/go-curses/ctk/lib/enums"
-	"github.com/go-enjin/be/pkg/globals"
 	"github.com/urfave/cli/v2"
 	"gorm.io/datatypes"
 	"gorm.io/gorm"
 
+	"github.com/go-enjin/third_party/features/atlassian"
+
+	"github.com/go-enjin/be/pkg/globals"
+
+	"github.com/go-enjin/third_party/pkg/atlas-gonnect/store"
+
 	databaseFeature "github.com/go-enjin/be/features/database"
 	"github.com/go-enjin/be/pkg/database"
 	"github.com/go-enjin/be/pkg/feature"
-	"github.com/go-enjin/third_party/pkg/atlas-gonnect/store"
 )
 
 var _consoleAtlassian *Console
@@ -55,10 +60,12 @@ type Console struct {
 	prefix string
 
 	db *gorm.DB
+	ei feature.Internals
 
-	frame  ctk.Frame
-	scroll ctk.ScrolledViewport
-	vbox   ctk.VBox
+	infoLabel ctk.Label
+	frame     ctk.Frame
+	scroll    ctk.ScrolledViewport
+	vbox      ctk.VBox
 }
 
 func New() feature.MakeConsole {
@@ -100,8 +107,9 @@ func (f *Console) Build(b feature.Buildable) (err error) {
 	return
 }
 
-func (f *Console) Setup(ctx *cli.Context) {
+func (f *Console) Setup(ctx *cli.Context, ei feature.Internals) {
 	f.prefix = ctx.String("prefix")
+	f.ei = ei
 }
 
 func (f *Console) Prepare(app ctk.Application) {
@@ -121,9 +129,24 @@ func (f *Console) Startup(display cdk.Display) {
 	vbox := window.GetVBox()
 	vbox.SetSpacing(1)
 
+	f.infoLabel = ctk.NewLabel("")
+	f.infoLabel.Show()
+	f.infoLabel.SetLineWrapMode(cenums.WRAP_NONE)
+	f.infoLabel.SetJustify(cenums.JUSTIFY_NONE)
+	vbox.PackStart(f.infoLabel, false, false, 0)
+
 	f.frame = ctk.NewFrame("loading...")
 	f.frame.Show()
 	f.frame.SetLabelAlign(0.0, 0.5)
+	ft := f.frame.GetTheme()
+	ft.Border.BorderRunes.TopLeft = paint.DefaultFillRune
+	ft.Border.BorderRunes.Left = paint.DefaultFillRune
+	ft.Border.BorderRunes.BottomLeft = paint.DefaultFillRune
+	ft.Border.BorderRunes.Bottom = paint.DefaultFillRune
+	ft.Border.BorderRunes.BottomRight = paint.DefaultFillRune
+	ft.Border.BorderRunes.Right = paint.DefaultFillRune
+	ft.Border.BorderRunes.TopRight = paint.DefaultFillRune
+	f.frame.SetTheme(ft)
 	vbox.PackStart(f.frame, true, true, 0)
 
 	f.scroll = ctk.NewScrolledViewport()
@@ -160,6 +183,28 @@ func (f *Console) Refresh() {
 		f.Display().RequestDraw()
 		f.Display().RequestShow()
 	}()
+
+	info := make(map[string]string)
+	for _, f := range f.ei.Features() {
+		if af, ok := f.(*atlassian.Feature); ok {
+			url := af.GetPluginInstallationURL()
+			dsc := af.GetPluginDescriptor()
+			if _, ok := info[dsc.Name]; !ok {
+				info[dsc.Name] = ""
+			} else {
+				info[dsc.Name] += "\n"
+			}
+			info[dsc.Name] += fmt.Sprintf(" - [%v] %v", dsc.Version, url)
+		}
+	}
+	var infoText string
+	for k, v := range info {
+		if infoText != "" {
+			infoText += "\n"
+		}
+		infoText += fmt.Sprintf("%v\n%v", k, v)
+	}
+	f.infoLabel.SetText(infoText)
 
 	for _, child := range f.vbox.GetChildren() {
 		f.vbox.Remove(child)
