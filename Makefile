@@ -146,10 +146,12 @@ local: enjenv
 	fi
 	@echo "# localizing ${GO_ENJIN_PKG}"
 	@${CMD} ${ENJENV_EXE} go-local "${BE_PATH}"
+	@${CMD} ${ENJENV_EXE} go-local "github.com/go-enjin/third_party/features/atlassian" ../../atlassian
 
 unlocal: enjenv
 	@echo "# restoring ${GO_ENJIN_PKG}"
 	@${CMD} ${ENJENV_EXE} go-unlocal
+	@${CMD} ${ENJENV_EXE} go-unlocal "github.com/go-enjin/third_party/features/atlassian"
 
 be-update: golang
 	@echo "# go get -u ${GO_ENJIN_PKG} ${EXTRA_PKGS}"
