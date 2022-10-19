@@ -1,6 +1,6 @@
 module github.com/go-enjin/third_party/features/consoles/atlassian
 
-go 1.17
+go 1.18
 
 require (
 	github.com/go-curses/ctk v0.5.3
