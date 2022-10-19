@@ -29,10 +29,10 @@ NODEJS ?=
 
 GO_ENJIN_PKG = github.com/go-enjin/be
 
-.PHONY: all help enjenv golang tidy local unlocal be-update build
+.PHONY: all golang enjenv help build tidy local unlocal be-update
 
 help:
-	@echo "usage: make <help|tidy|local|unlocal|be-update|build>"
+	@echo "usage: make <help|build|tidy|local|unlocal|be-update>"
 
 define _be_local_path =
 $(shell \
@@ -153,13 +153,15 @@ unlocal: enjenv
 	@${CMD} ${ENJENV_EXE} go-unlocal
 	@${CMD} ${ENJENV_EXE} go-unlocal "github.com/go-enjin/third_party/features/atlassian"
 
+be-update: export GOPROXY=direct
 be-update: golang
-	@echo "# go get -u ${GO_ENJIN_PKG} ${EXTRA_PKGS}"
-	@source "${ENJENV_PATH}/activate" \
-		&& ${CMD} GOPROXY=direct go get -u \
+	@source "${ENJENV_PATH}/activate"; \
+		for PKG in ${GO_ENJIN_PKG} ${EXTRA_PKGS}; do \
+			echo "# go get $${PKG}@latest"; \
+			${CMD} go get \
 			$(call _build_tags) \
-			${GO_ENJIN_PKG} \
-			${EXTRA_PKGS}
+			$${PKG}@latest; \
+		done
 
 build: golang
 	@source "${ENJENV_PATH}/activate" \
