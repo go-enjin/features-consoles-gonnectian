@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/go-curses/ctk v0.5.3
-	github.com/go-enjin/be v0.0.0-20221015040209-5108ff0dbb73
+	github.com/go-enjin/be v0.0.0-20221019183905-c1361f693e21
 	github.com/go-enjin/third_party/pkg/atlas-gonnect v0.0.0-20220905204515-a7c983e2116b
 	github.com/urfave/cli/v2 v2.19.2
 	gorm.io/gorm v1.24.0

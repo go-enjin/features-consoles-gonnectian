@@ -196,8 +196,8 @@ github.com/go-curses/term v1.2.2-gocurses.1/go.mod h1:ZuwRe9U+iLY2qTuhzg/kg0Pc9b
 github.com/go-curses/terminfo v1.0.0 h1:vU1G+oYsvSwmywZe6ZsoRQ8a8XDrzlM3rPeejUmpzc4=
 github.com/go-curses/terminfo v1.0.0/go.mod h1:3cAGarEfP6wdhHYmUI2xAx14cu+cfIIQYXehy2q/zUg=
 github.com/go-enjin/be v0.0.0-20220322160247-935ba4723e61/go.mod h1:oF/DZmYDFZt/3Rt15bA5Ve1o64nt5zt4NuMhkzvC83A=
-github.com/go-enjin/be v0.0.0-20221015040209-5108ff0dbb73 h1:sfFlQ2486ELLnBPuLSFDKmTccZ/X3Oi6V6xEjX+gmPA=
-github.com/go-enjin/be v0.0.0-20221015040209-5108ff0dbb73/go.mod h1:rQlMug6N4fKykck8wPOwRdG/aM6z4EieMweu6OI5sZU=
+github.com/go-enjin/be v0.0.0-20221019183905-c1361f693e21 h1:80+AhEfw53UTYKgph6bPqlcNbJbocaeGdlBcq6zTnfk=
+github.com/go-enjin/be v0.0.0-20221019183905-c1361f693e21/go.mod h1:rQlMug6N4fKykck8wPOwRdG/aM6z4EieMweu6OI5sZU=
 github.com/go-enjin/third_party/features/atlassian v0.0.0-20220905204515-a7c983e2116b h1:x+h94VVkODZ6qr/+o58p1DcnmaVYQfZTWA+Yb9iwHNA=
 github.com/go-enjin/third_party/features/atlassian v0.0.0-20220905204515-a7c983e2116b/go.mod h1:WBmW5okOOlgHeD+Mr0bFXNim0wFaN8JITeYgJrksB/o=
 github.com/go-enjin/third_party/pkg/atlas-gonnect v0.0.0-20220807212934-469d41a0a2ef/go.mod h1:n/VGwVUXWBW8AcxFhYVIoks5Awsr9R+78D7W+Bc02lg=
