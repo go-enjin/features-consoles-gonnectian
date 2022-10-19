@@ -134,10 +134,9 @@ golang: enjenv
 	fi
 
 tidy: golang
-	@echo "# go mod tidy -go=1.16 && go mod tidy -go=1.17"
+	@echo "# go mod tidy"
 	@source "${ENJENV_PATH}/activate" \
-		&& ${CMD} go mod tidy -go=1.16 \
-		&& ${CMD} go mod tidy -go=1.17
+		&& ${CMD} go mod tidy
 
 local: enjenv
 	@if [ "${BE_PATH}" = "" ]; then \
