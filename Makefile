@@ -21,8 +21,8 @@ SHELL = /bin/bash
 
 BE_PATH ?= ../../../../be
 
-BUILD_TAGS = sass
-EXTRA_PKGS =
+BUILD_TAGS = sass,curses,atlassian,database
+EXTRA_PKGS = github.com/go-enjin/third_party/pkg/atlas-gonnect
 
 GOLANG ?= 1.17.7
 NODEJS ?=
