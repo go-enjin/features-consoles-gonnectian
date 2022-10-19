@@ -76,6 +76,10 @@ func New() feature.MakeConsole {
 	return _consoleAtlassian
 }
 
+func (f *Console) Make() feature.Console {
+	return f
+}
+
 func (f *Console) Depends() (deps feature.Tags) {
 	deps = feature.Tags{
 		databaseFeature.Tag,
