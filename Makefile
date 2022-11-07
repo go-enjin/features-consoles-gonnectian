@@ -19,9 +19,9 @@
 
 SHELL = /bin/bash
 
-BE_PATH ?= ../../../../be
+BE_PATH ?= ../be
 
-BUILD_TAGS = sass,curses,atlassian,database
+BUILD_TAGS = sass,curses,database
 EXTRA_PKGS = github.com/go-enjin/github-com-craftamap-atlas-gonnect
 
 GOLANG ?= 1.17.7
@@ -145,12 +145,12 @@ local: enjenv
 	fi
 	@echo "# localizing ${GO_ENJIN_PKG}"
 	@${CMD} ${ENJENV_EXE} go-local "${BE_PATH}"
-	@${CMD} ${ENJENV_EXE} go-local "github.com/go-enjin/third_party/features/atlassian" ../../atlassian
+	@${CMD} ${ENJENV_EXE} go-local "github.com/go-enjin/features-gonnectian" ../gonnectian
 
 unlocal: enjenv
 	@echo "# restoring ${GO_ENJIN_PKG}"
 	@${CMD} ${ENJENV_EXE} go-unlocal
-	@${CMD} ${ENJENV_EXE} go-unlocal "github.com/go-enjin/third_party/features/atlassian"
+	@${CMD} ${ENJENV_EXE} go-unlocal "github.com/go-enjin/features-gonnectian"
 
 be-update: export GOPROXY=direct
 be-update: golang

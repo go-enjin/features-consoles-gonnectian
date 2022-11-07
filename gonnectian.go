@@ -1,5 +1,3 @@
-//go:build all || (curses && atlassian)
-
 // Copyright (c) 2022  The Go-Enjin Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package atlassian
+package gonnectian
 
 import (
 	"encoding/json"
@@ -30,7 +28,7 @@ import (
 	"gorm.io/datatypes"
 	"gorm.io/gorm"
 
-	"github.com/go-enjin/third_party/features/atlassian"
+	"github.com/go-enjin/features-gonnectian"
 
 	"github.com/go-enjin/be/pkg/globals"
 
@@ -41,7 +39,7 @@ import (
 	"github.com/go-enjin/be/pkg/feature"
 )
 
-var _consoleAtlassian *Console
+var _instance *Console
 
 var (
 	_ feature.Console     = (*Console)(nil)
@@ -69,11 +67,11 @@ type Console struct {
 }
 
 func New() feature.MakeConsole {
-	if _consoleAtlassian == nil {
-		_consoleAtlassian = new(Console)
-		_consoleAtlassian.Init(_consoleAtlassian)
+	if _instance == nil {
+		_instance = new(Console)
+		_instance.Init(_instance)
 	}
-	return _consoleAtlassian
+	return _instance
 }
 
 func (f *Console) Make() feature.Console {
@@ -190,7 +188,7 @@ func (f *Console) Refresh() {
 
 	info := make(map[string]string)
 	for _, f := range f.ei.Features() {
-		if af, ok := f.(*atlassian.Feature); ok {
+		if af, ok := f.(*gonnectian.Feature); ok {
 			url := af.GetPluginInstallationURL()
 			dsc := af.GetPluginDescriptor()
 			if _, ok := info[dsc.Name]; !ok {
@@ -226,7 +224,7 @@ func (f *Console) Refresh() {
 	f.frame.SetLabel(fmt.Sprintf("%d tenants found:", numTenants))
 
 	if numTenants == 0 {
-		tl := ctk.NewLabel("(no atlassian connect installations present")
+		tl := ctk.NewLabel("(no gonnectian installations present")
 		tl.SetAlignment(0.5, 0.5)
 		tl.SetJustify(cenums.JUSTIFY_CENTER)
 		tl.Show()
@@ -290,7 +288,7 @@ func (f *Console) Refresh() {
 		bt.SetSizeRequest(20, 3)
 		bt.SetTooltipText(tooltipText)
 		bt.SetHasTooltip(true)
-		bt.Connect(ctk.SignalActivate, "atlassian-console-activate-handler", f.toggleDebugHandler, tenant, ctx)
+		bt.Connect(ctk.SignalActivate, "gonnectian-console-activate-handler", f.toggleDebugHandler, tenant, ctx)
 		hbox.PackStart(bt, false, false, 0)
 	}
 }
