@@ -22,7 +22,7 @@ SHELL = /bin/bash
 BE_PATH ?= ../../../../be
 
 BUILD_TAGS = sass,curses,atlassian,database
-EXTRA_PKGS = github.com/go-enjin/third_party/pkg/atlas-gonnect
+EXTRA_PKGS = github.com/go-enjin/github-com-craftamap-atlas-gonnect
 
 GOLANG ?= 1.17.7
 NODEJS ?=

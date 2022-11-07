@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/go-curses/cdk v0.5.12
 	github.com/go-curses/ctk v0.5.3
-	github.com/go-enjin/be v0.0.0-20221106213152-7661cba02d30
+	github.com/go-enjin/be v0.0.0-20221107181905-c1577f1de6d7
 	github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.0.0-20221107173035-5497ab6915a4
 	github.com/go-enjin/third_party/features/atlassian v0.0.0-20221107174134-58e06932c331
 	github.com/urfave/cli/v2 v2.23.4
@@ -69,6 +69,7 @@ require (
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/jtolio/gls v4.20.0+incompatible // indirect
+	github.com/kr/pretty v0.3.0 // indirect
 	github.com/leekchan/gtf v0.0.0-20190214083521-5fba33c5b00b // indirect
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
 	github.com/maruel/natural v1.1.0 // indirect
@@ -85,6 +86,7 @@ require (
 	github.com/pkg/profile v1.6.0 // indirect
 	github.com/polds/logrus-papertrail-hook v0.0.0-20180214143432-bcfe7b72c1a4 // indirect
 	github.com/rivo/uniseg v0.4.2 // indirect
+	github.com/rogpeppe/go-internal v1.8.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sirupsen/logrus v1.9.0 // indirect
 	github.com/tdewolff/parse/v2 v2.6.4 // indirect
@@ -99,6 +101,7 @@ require (
 	golang.org/x/term v0.0.0-20220919170432-7a66f970e087 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
+	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/mysql v1.4.3 // indirect
 	gorm.io/driver/postgres v1.4.5 // indirect
