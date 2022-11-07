@@ -34,7 +34,7 @@ import (
 
 	"github.com/go-enjin/be/pkg/globals"
 
-	"github.com/go-enjin/third_party/pkg/atlas-gonnect/store"
+	"github.com/go-enjin/github-com-craftamap-atlas-gonnect/store"
 
 	databaseFeature "github.com/go-enjin/be/features/database"
 	"github.com/go-enjin/be/pkg/database"
