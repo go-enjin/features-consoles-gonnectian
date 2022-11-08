@@ -39,8 +39,6 @@ import (
 	"github.com/go-enjin/be/pkg/feature"
 )
 
-var _instance *Console
-
 var (
 	_ feature.Console     = (*Console)(nil)
 	_ feature.MakeConsole = (*Console)(nil)
@@ -67,11 +65,9 @@ type Console struct {
 }
 
 func New() feature.MakeConsole {
-	if _instance == nil {
-		_instance = new(Console)
-		_instance.Init(_instance)
-	}
-	return _instance
+	f := new(Console)
+	f.Init(f)
+	return f
 }
 
 func (f *Console) Make() feature.Console {
