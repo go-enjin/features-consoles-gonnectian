@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/go-curses/cdk v0.5.12
 	github.com/go-curses/ctk v0.5.3
-	github.com/go-enjin/be v0.0.0-20221108175501-9e897957e9d6
+	github.com/go-enjin/be v0.0.0-20221108201303-c1f09c5dabac
 	github.com/go-enjin/features-gonnectian v0.0.0-20221107194626-3ad0aefc86fb
 	github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.0.0-20221107173035-5497ab6915a4
 	github.com/urfave/cli/v2 v2.23.4
