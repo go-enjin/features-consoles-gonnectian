@@ -6,15 +6,15 @@ require (
 	github.com/go-curses/cdk v0.5.12
 	github.com/go-curses/ctk v0.5.3
 	github.com/go-enjin/be v0.0.0-20230118230311-511871189c00
-	github.com/go-enjin/features-gonnectian v0.0.0-20230119200327-a4daf86d18ea
-	github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.0.0-20230118232030-2fc058e267b1
-	github.com/urfave/cli/v2 v2.23.4
-	gorm.io/datatypes v1.0.7
-	gorm.io/gorm v1.24.1
+	github.com/go-enjin/features-gonnectian v0.0.0-20230119211927-5f72a5c53808
+	github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.0.0-20230119211716-bba5ef5de13c
+	github.com/urfave/cli/v2 v2.23.7
+	gorm.io/datatypes v1.1.0
+	gorm.io/gorm v1.24.3
 )
 
 require (
-	github.com/BurntSushi/toml v1.2.0 // indirect
+	github.com/BurntSushi/toml v1.2.1 // indirect
 	github.com/GehirnInc/crypt v0.0.0-20200316065508-bb7000b8a962 // indirect
 	github.com/RoaringBitmap/roaring v0.9.4 // indirect
 	github.com/alecthomas/participle/v2 v2.0.0-beta.5 // indirect
@@ -47,7 +47,7 @@ require (
 	github.com/go-curses/terminfo v1.0.0 // indirect
 	github.com/go-enjin/github-com-djherbis-times v0.0.0-20221101184323-aeef8854ee8a // indirect
 	github.com/go-enjin/golang-org-x-text v0.0.0-20221026190533-d0e9c4fd3b27 // indirect
-	github.com/go-sql-driver/mysql v1.6.0 // indirect
+	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/goccy/go-json v0.9.11 // indirect
 	github.com/gofrs/uuid v4.3.0+incompatible // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
@@ -102,7 +102,7 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	gorm.io/driver/mysql v1.4.3 // indirect
+	gorm.io/driver/mysql v1.4.4 // indirect
 	gorm.io/driver/postgres v1.4.5 // indirect
 	gorm.io/driver/sqlite v1.4.3 // indirect
 )
