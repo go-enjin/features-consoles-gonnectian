@@ -22,7 +22,10 @@ SHELL = /bin/bash
 BE_PATH ?= ../be
 
 BUILD_TAGS = sass,curses,database
-EXTRA_PKGS = github.com/go-enjin/github-com-craftamap-atlas-gonnect
+EXTRA_PKGS = github.com/go-enjin/features-gonnectian \
+	github.com/go-enjin/github-com-craftamap-atlas-gonnect \
+	github.com/go-curses/cdk \
+	github.com/go-curses/ctk
 
 GOLANG ?= 1.17.7
 NODEJS ?=
@@ -145,12 +148,18 @@ local: enjenv
 	fi
 	@echo "# localizing ${GO_ENJIN_PKG}"
 	@${CMD} ${ENJENV_EXE} go-local "${BE_PATH}"
-	@${CMD} ${ENJENV_EXE} go-local "github.com/go-enjin/features-gonnectian" ../gonnectian
+	@${CMD} ${ENJENV_EXE} go-local "github.com/go-enjin/features-gonnectian" ../features-gonnectian
+	@${CMD} ${ENJENV_EXE} go-local "github.com/go-enjin/github-com-craftamap-atlas-gonnect" ../github-com-craftamap-atlas-gonnect
+	@${CMD} ${ENJENV_EXE} go-local "github.com/go-curses/cdk" ../../go-curses/cdk
+	@${CMD} ${ENJENV_EXE} go-local "github.com/go-curses/ctk" ../../go-curses/ctk
 
 unlocal: enjenv
 	@echo "# restoring ${GO_ENJIN_PKG}"
 	@${CMD} ${ENJENV_EXE} go-unlocal
 	@${CMD} ${ENJENV_EXE} go-unlocal "github.com/go-enjin/features-gonnectian"
+	@${CMD} ${ENJENV_EXE} go-unlocal "github.com/go-enjin/github-com-craftamap-atlas-gonnect"
+	@${CMD} ${ENJENV_EXE} go-unlocal "github.com/go-curses/cdk"
+	@${CMD} ${ENJENV_EXE} go-unlocal "github.com/go-curses/ctk"
 
 be-update: export GOPROXY=direct
 be-update: golang
