@@ -28,8 +28,6 @@ import (
 	"gorm.io/datatypes"
 	"gorm.io/gorm"
 
-	"github.com/go-enjin/features-gonnectian"
-
 	"github.com/go-enjin/be/pkg/globals"
 
 	"github.com/go-enjin/github-com-craftamap-atlas-gonnect/store"
@@ -37,11 +35,11 @@ import (
 	databaseFeature "github.com/go-enjin/be/features/database"
 	"github.com/go-enjin/be/pkg/database"
 	"github.com/go-enjin/be/pkg/feature"
+	"github.com/go-enjin/features-gonnectian"
 )
 
 var (
-	_ feature.Console     = (*Console)(nil)
-	_ feature.MakeConsole = (*Console)(nil)
+	_ Console = (*CConsole)(nil)
 )
 
 const (
@@ -50,7 +48,12 @@ const (
 	Version             = "0.1.0"
 )
 
-type Console struct {
+type Console interface {
+	feature.MakeConsole
+	feature.Console
+}
+
+type CConsole struct {
 	feature.CConsole
 
 	prefix string
@@ -65,33 +68,29 @@ type Console struct {
 }
 
 func New() feature.MakeConsole {
-	f := new(Console)
+	f := new(CConsole)
 	f.Init(f)
 	return f
 }
 
-func (f *Console) Make() feature.Console {
-	return f
-}
-
-func (f *Console) Depends() (deps feature.Tags) {
+func (f *CConsole) Depends() (deps feature.Tags) {
 	deps = feature.Tags{
 		databaseFeature.Tag,
 	}
 	return
 }
 
-func (f *Console) Tag() (tag feature.Tag) {
+func (f *CConsole) Tag() (tag feature.Tag) {
 	tag = Tag
 	return
 }
 
-func (f *Console) Name() (name string) {
+func (f *CConsole) Name() (name string) {
 	name = Name
 	return
 }
 
-func (f *Console) Title() (title string) {
+func (f *CConsole) Title() (title string) {
 	if f.prefix != "" {
 		title = fmt.Sprintf("Atlas-Gonnect v%v (%v %v) [%v]", Version, globals.BinName, globals.Version, f.prefix)
 		return
@@ -100,17 +99,17 @@ func (f *Console) Title() (title string) {
 	return
 }
 
-func (f *Console) Build(b feature.Buildable) (err error) {
+func (f *CConsole) Build(b feature.Buildable) (err error) {
 	log.DebugF("%v (v%v) build", Tag, Version)
 	return
 }
 
-func (f *Console) Setup(ctx *cli.Context, ei feature.Internals) {
+func (f *CConsole) Setup(ctx *cli.Context, ei feature.Internals) {
 	f.prefix = ctx.String("prefix")
 	f.ei = ei
 }
 
-func (f *Console) Prepare(app ctk.Application) {
+func (f *CConsole) Prepare(app ctk.Application) {
 	f.CConsole.Prepare(app)
 
 	var err error
@@ -119,7 +118,7 @@ func (f *Console) Prepare(app ctk.Application) {
 	}
 }
 
-func (f *Console) Startup(display cdk.Display) {
+func (f *CConsole) Startup(display cdk.Display) {
 	f.CConsole.Startup(display)
 
 	window := f.Window()
@@ -162,12 +161,12 @@ func (f *Console) Startup(display cdk.Display) {
 	f.App().NotifyStartupComplete()
 }
 
-func (f *Console) Resized(w, h int) {
+func (f *CConsole) Resized(w, h int) {
 	log.DebugF("refreshing on resized: %v, %v", w, h)
 	f.Refresh()
 }
 
-func (f *Console) Refresh() {
+func (f *CConsole) Refresh() {
 	window := f.Window()
 	display := f.Display()
 
@@ -289,7 +288,7 @@ func (f *Console) Refresh() {
 	}
 }
 
-func (f *Console) toggleDebugHandler(data []interface{}, argv ...interface{}) cenums.EventFlag {
+func (f *CConsole) toggleDebugHandler(data []interface{}, argv ...interface{}) cenums.EventFlag {
 	if len(data) == 2 {
 		if t, ok := data[0].(*store.Tenant); ok {
 			if c, ok := data[1].(map[string]interface{}); ok {
