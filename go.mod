@@ -5,10 +5,10 @@ go 1.19
 require (
 	github.com/go-curses/cdk v0.5.12
 	github.com/go-curses/ctk v0.5.3
-	github.com/go-enjin/be v0.0.0-20230118230311-511871189c00
-	github.com/go-enjin/features-gonnectian v0.0.0-20230119211927-5f72a5c53808
-	github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.0.0-20230119211716-bba5ef5de13c
-	github.com/urfave/cli/v2 v2.23.7
+	github.com/go-enjin/be v0.0.0-20230201225739-91c0f9f2756f
+	github.com/go-enjin/features-gonnectian v0.0.0-20230201230424-f96b352016a7
+	github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.0.0-20230201225947-24c022f2673c
+	github.com/urfave/cli/v2 v2.24.2
 	gorm.io/datatypes v1.1.0
 	gorm.io/gorm v1.24.3
 )
