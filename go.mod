@@ -5,9 +5,9 @@ go 1.19
 require (
 	github.com/go-curses/cdk v0.5.12
 	github.com/go-curses/ctk v0.5.3
-	github.com/go-enjin/be v0.0.0-20230201225739-91c0f9f2756f
-	github.com/go-enjin/features-gonnectian v0.0.0-20230201230424-f96b352016a7
-	github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.0.0-20230201225947-24c022f2673c
+	github.com/go-enjin/be v0.0.0-20230202001255-bb925bfcce8b
+	github.com/go-enjin/features-gonnectian v0.0.0-20230202002347-a9976dad10af
+	github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.0.0-20230202002232-0026f2e9d0c3
 	github.com/urfave/cli/v2 v2.24.2
 	gorm.io/datatypes v1.1.0
 	gorm.io/gorm v1.24.3
@@ -17,7 +17,7 @@ require (
 	github.com/BurntSushi/toml v1.2.1 // indirect
 	github.com/GehirnInc/crypt v0.0.0-20200316065508-bb7000b8a962 // indirect
 	github.com/RoaringBitmap/roaring v0.9.4 // indirect
-	github.com/alecthomas/participle/v2 v2.0.0-beta.5 // indirect
+	github.com/alecthomas/participle/v2 v2.0.0-beta.5.0.20221205101428-1f05da7649a8 // indirect
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/bits-and-blooms/bitset v1.2.0 // indirect
