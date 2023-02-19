@@ -3,11 +3,11 @@ module github.com/go-enjin/features-consoles-gonnectian
 go 1.19
 
 require (
-	github.com/go-curses/cdk v0.5.13
-	github.com/go-curses/ctk v0.5.4
-	github.com/go-enjin/be v0.0.0-20230219164336-a489df8dbf44
-	github.com/go-enjin/features-gonnectian v0.0.0-20230219165745-c8b5e1ef03b0
-	github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.0.0-20230219165221-c6ef425bbcb7
+	github.com/go-curses/cdk v0.5.14
+	github.com/go-curses/ctk v0.5.5
+	github.com/go-enjin/be v0.0.0-20230219182730-fdabda8c29d2
+	github.com/go-enjin/features-gonnectian v0.0.0-20230219183520-87cd76cb1509
+	github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.0.0-20230219183414-f7dbdbf244d2
 	github.com/urfave/cli/v2 v2.24.3
 	gorm.io/datatypes v1.1.0
 	gorm.io/gorm v1.24.4
@@ -89,7 +89,7 @@ require (
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
 	github.com/yookoala/realpath v1.0.0 // indirect
 	go.etcd.io/bbolt v1.3.5 // indirect
-	golang.org/x/crypto v0.4.0 // indirect
+	golang.org/x/crypto v0.6.0 // indirect
 	golang.org/x/net v0.7.0 // indirect
 	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/term v0.5.0 // indirect
