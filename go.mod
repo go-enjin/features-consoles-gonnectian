@@ -1,14 +1,14 @@
 module github.com/go-enjin/features-consoles-gonnectian
 
-go 1.19
+go 1.20
 
 require (
 	github.com/go-curses/cdk v0.5.14
-	github.com/go-curses/ctk v0.5.5
-	github.com/go-enjin/be v0.0.0-20230219182730-fdabda8c29d2
-	github.com/go-enjin/features-gonnectian v0.0.0-20230219183520-87cd76cb1509
-	github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.0.0-20230219183414-f7dbdbf244d2
-	github.com/urfave/cli/v2 v2.24.3
+	github.com/go-curses/ctk v0.5.6
+	github.com/go-enjin/be v0.0.0-20230306185847-fc7be4685066
+	github.com/go-enjin/features-gonnectian v0.0.0-20230306194538-2fea336d8e13
+	github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.0.0-20230306194441-1bad366b22eb
+	github.com/urfave/cli/v2 v2.14.1
 	gorm.io/datatypes v1.1.0
 	gorm.io/gorm v1.24.4
 )
@@ -46,7 +46,7 @@ require (
 	github.com/go-curses/term v1.2.2-gocurses.1 // indirect
 	github.com/go-curses/terminfo v1.0.0 // indirect
 	github.com/go-enjin/github-com-djherbis-times v0.0.0-20221101184323-aeef8854ee8a // indirect
-	github.com/go-enjin/golang-org-x-text v0.0.0-20221026190533-d0e9c4fd3b27 // indirect
+	github.com/go-enjin/golang-org-x-text v0.0.0-20230219204830-4f2b7b481f16 // indirect
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/goccy/go-json v0.9.11 // indirect
 	github.com/gofrs/uuid v4.3.0+incompatible // indirect
