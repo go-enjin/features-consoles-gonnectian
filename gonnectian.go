@@ -18,24 +18,23 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/urfave/cli/v2"
+	"gorm.io/datatypes"
+	"gorm.io/gorm"
+
 	"github.com/go-curses/cdk"
 	cenums "github.com/go-curses/cdk/lib/enums"
 	"github.com/go-curses/cdk/lib/paint"
 	"github.com/go-curses/cdk/log"
 	"github.com/go-curses/ctk"
 	"github.com/go-curses/ctk/lib/enums"
-	"github.com/urfave/cli/v2"
-	"gorm.io/datatypes"
-	"gorm.io/gorm"
-
-	"github.com/go-enjin/be/pkg/globals"
-
-	"github.com/go-enjin/github-com-craftamap-atlas-gonnect/store"
 
 	databaseFeature "github.com/go-enjin/be/features/database"
 	"github.com/go-enjin/be/pkg/database"
 	"github.com/go-enjin/be/pkg/feature"
+	"github.com/go-enjin/be/pkg/globals"
 	"github.com/go-enjin/features-gonnectian"
+	"github.com/go-enjin/github-com-craftamap-atlas-gonnect/store"
 )
 
 var (
