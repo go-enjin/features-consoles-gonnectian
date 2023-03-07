@@ -5,8 +5,8 @@ go 1.20
 require (
 	github.com/go-curses/cdk v0.5.14
 	github.com/go-curses/ctk v0.5.6
-	github.com/go-enjin/be v0.0.0-20230306185847-fc7be4685066
-	github.com/go-enjin/features-gonnectian v0.0.0-20230306194538-2fea336d8e13
+	github.com/go-enjin/be v0.0.0-20230307191318-3f2005fec026
+	github.com/go-enjin/features-gonnectian v0.0.0-20230307192145-44503539e59d
 	github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.0.0-20230306194441-1bad366b22eb
 	github.com/urfave/cli/v2 v2.14.1
 	gorm.io/datatypes v1.1.0
@@ -73,7 +73,7 @@ require (
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/mattn/go-sqlite3 v1.14.15 // indirect
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect
-	github.com/microcosm-cc/bluemonday v1.0.20 // indirect
+	github.com/microcosm-cc/bluemonday v1.0.23 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/mschoch/smat v0.2.0 // indirect
@@ -90,10 +90,10 @@ require (
 	github.com/yookoala/realpath v1.0.0 // indirect
 	go.etcd.io/bbolt v1.3.5 // indirect
 	golang.org/x/crypto v0.6.0 // indirect
-	golang.org/x/net v0.7.0 // indirect
-	golang.org/x/sys v0.5.0 // indirect
-	golang.org/x/term v0.5.0 // indirect
-	golang.org/x/text v0.7.0 // indirect
+	golang.org/x/net v0.8.0 // indirect
+	golang.org/x/sys v0.6.0 // indirect
+	golang.org/x/term v0.6.0 // indirect
+	golang.org/x/text v0.8.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/mysql v1.4.5 // indirect
