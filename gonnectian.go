@@ -29,12 +29,13 @@ import (
 	"github.com/go-curses/ctk"
 	"github.com/go-curses/ctk/lib/enums"
 
+	"github.com/go-enjin/github-com-craftamap-atlas-gonnect/store"
+
 	databaseFeature "github.com/go-enjin/be/features/database"
 	"github.com/go-enjin/be/pkg/database"
 	"github.com/go-enjin/be/pkg/feature"
 	"github.com/go-enjin/be/pkg/globals"
 	"github.com/go-enjin/features-gonnectian"
-	"github.com/go-enjin/github-com-craftamap-atlas-gonnect/store"
 )
 
 var (
@@ -182,7 +183,7 @@ func (f *CConsole) Refresh() {
 
 	info := make(map[string]string)
 	for _, f := range f.ei.Features() {
-		if af, ok := f.(*gonnectian.Feature); ok {
+		if af, ok := f.(*gonnectian.CFeature); ok {
 			url := af.GetPluginInstallationURL()
 			dsc := af.GetPluginDescriptor()
 			if _, ok := info[dsc.Name]; !ok {
