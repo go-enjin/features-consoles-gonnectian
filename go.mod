@@ -6,7 +6,7 @@ require (
 	github.com/go-curses/cdk v0.5.14
 	github.com/go-curses/ctk v0.5.6
 	github.com/go-enjin/be v0.0.0-20230311192845-e6d4fa8d2f06
-	github.com/go-enjin/features-gonnectian v0.0.0-20230311224302-a020760bc25e
+	github.com/go-enjin/features-gonnectian v0.0.0-20230314172151-86bfa6faa3e5
 	github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.0.0-20230306194441-1bad366b22eb
 	github.com/urfave/cli/v2 v2.14.1
 	gorm.io/datatypes v1.1.0
