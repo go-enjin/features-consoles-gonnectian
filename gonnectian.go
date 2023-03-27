@@ -19,7 +19,6 @@ import (
 	"fmt"
 
 	"github.com/urfave/cli/v2"
-	"gorm.io/datatypes"
 	"gorm.io/gorm"
 
 	"github.com/go-curses/cdk"
@@ -242,18 +241,25 @@ func (f *CConsole) Refresh() {
 		} else {
 			debug = "false"
 		}
+		var allowedUnlicensed bool
+		if v, ok := ctx["allowed-unlicensed"].(bool); ok {
+			allowedUnlicensed = v
+		}
 
 		hbox := ctk.NewHBox(false, 1)
 		hbox.Show()
 		hbox.SetSizeRequest(-1, 3)
 		f.vbox.PackStart(hbox, false, false, 0)
 
-		tenantText := fmt.Sprintf("[%d] %v", idx+1, tenant.BaseURL)
+		tenantText := fmt.Sprintf("[%d] %v (lic=%v)", idx+1, tenant.BaseURL, ctx["license"])
 		tenantText += fmt.Sprintf("\n (c=%v / u=%v)", tenant.CreatedAt.Format("2006-01-02 15:04 MST"), tenant.UpdatedAt.Format("2006-01-02 15:04 MST"))
 		if tenant.AddonInstalled {
 			tenantText += "\n  (installed, "
 		} else {
 			tenantText += "\n  (not installed, "
+		}
+		if allowedUnlicensed {
+			tenantText += " allowed unlicensed, "
 		}
 		if debug == "true" {
 			tenantText += " debugging enabled)"
@@ -285,6 +291,21 @@ func (f *CConsole) Refresh() {
 		bt.SetHasTooltip(true)
 		bt.Connect(ctk.SignalActivate, "gonnectian-console-activate-handler", f.toggleDebugHandler, tenant, ctx)
 		hbox.PackStart(bt, false, false, 0)
+
+		if allowedUnlicensed {
+			buttonLabel = "Reject Unlicensed"
+			tooltipText = "Click to reject unlicensed installations for this tenant"
+		} else {
+			buttonLabel = "Allow Unlicensed"
+			tooltipText = "Click to allow unlicensed installations for this tenant"
+		}
+		bt = ctk.NewButtonWithLabel(buttonLabel)
+		bt.Show()
+		bt.SetSizeRequest(20, 3)
+		bt.SetTooltipText(tooltipText)
+		bt.SetHasTooltip(true)
+		bt.Connect(ctk.SignalActivate, "gonnectian-console-activate-handler", f.toggleUnlicensedHandler, tenant, ctx)
+		hbox.PackStart(bt, false, false, 0)
 	}
 }
 
@@ -304,7 +325,37 @@ func (f *CConsole) toggleDebugHandler(data []interface{}, argv ...interface{}) c
 				if b, err := json.Marshal(c); err != nil {
 					log.ErrorF("error encoding tenant context change: %v", err)
 				} else {
-					t.Context = datatypes.JSON(b)
+					t.Context = b
+					if err := f.db.Save(&t).Error; err != nil {
+						log.ErrorF("error saving tenant database change: %v", err)
+					}
+					f.Refresh()
+				}
+			}
+		}
+	}
+	return cenums.EVENT_STOP
+}
+
+func (f *CConsole) toggleUnlicensedHandler(data []interface{}, argv ...interface{}) cenums.EventFlag {
+	if len(data) == 2 {
+		if t, ok := data[0].(*store.Tenant); ok {
+			if c, ok := data[1].(map[string]interface{}); ok {
+				if v, ok := c["allowed-unlicensed"].(bool); ok {
+					if v {
+						c["allowed-unlicensed"] = false
+					} else {
+						c["allowed-unlicensed"] = true
+						delete(c, "reject")
+					}
+				} else {
+					c["allowed-unlicensed"] = true
+					delete(c, "reject")
+				}
+				if b, err := json.Marshal(c); err != nil {
+					log.ErrorF("error encoding tenant context change: %v", err)
+				} else {
+					t.Context = b
 					if err := f.db.Save(&t).Error; err != nil {
 						log.ErrorF("error saving tenant database change: %v", err)
 					}
