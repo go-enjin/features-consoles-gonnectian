@@ -5,11 +5,10 @@ go 1.20
 require (
 	github.com/go-curses/cdk v0.5.14
 	github.com/go-curses/ctk v0.5.6
-	github.com/go-enjin/be v0.0.0-20230311192845-e6d4fa8d2f06
-	github.com/go-enjin/features-gonnectian v0.0.0-20230314172151-86bfa6faa3e5
-	github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.0.0-20230306194441-1bad366b22eb
+	github.com/go-enjin/be v0.0.0-20230329213325-0f826026eb3c
+	github.com/go-enjin/features-gonnectian v0.0.0-20230329214211-5df4d99f88fa
+	github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.0.0-20230329214034-644e6ad8944c
 	github.com/urfave/cli/v2 v2.14.1
-	gorm.io/datatypes v1.1.0
 	gorm.io/gorm v1.24.4
 )
 
@@ -96,6 +95,7 @@ require (
 	golang.org/x/text v0.8.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+	gorm.io/datatypes v1.1.0 // indirect
 	gorm.io/driver/mysql v1.4.5 // indirect
 	gorm.io/driver/postgres v1.4.6 // indirect
 	gorm.io/driver/sqlite v1.4.4 // indirect
