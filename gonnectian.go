@@ -37,14 +37,17 @@ var (
 )
 
 const (
-	Tag     feature.Tag = "AtlasGonnect"
-	Name                = "atlas-gonnect"
-	Version             = "0.1.0"
+	Tag     feature.Tag = "Gonnectian"
+	Name                = "gonnectian"
+	Version             = "0.2.0"
 )
 
 type Console interface {
-	feature.MakeConsole
 	feature.Console
+}
+
+type MakeConsole interface {
+	Make() feature.Console
 }
 
 type CConsole struct {
@@ -63,7 +66,7 @@ type CConsole struct {
 	vbox      ctk.VBox
 }
 
-func New() feature.MakeConsole {
+func New() MakeConsole {
 	f := new(CConsole)
 	f.Init(f)
 	return f
@@ -88,11 +91,15 @@ func (f *CConsole) Name() (name string) {
 
 func (f *CConsole) Title() (title string) {
 	if f.prefix != "" {
-		title = fmt.Sprintf("Atlas-Gonnect v%v (%v %v) [%v]", Version, globals.BinName, globals.Version, f.prefix)
+		title = fmt.Sprintf("Gonnectian v%v (%v %v) [%v]", Version, globals.BinName, globals.Version, f.prefix)
 		return
 	}
-	title = fmt.Sprintf("Atlas-Gonnect v%v (%v %v)", Version, globals.BinName, globals.Version)
+	title = fmt.Sprintf("Gonnectian v%v (%v %v)", Version, globals.BinName, globals.Version)
 	return
+}
+
+func (f *CConsole) Make() (c feature.Console) {
+	return f.Self()
 }
 
 func (f *CConsole) Build(b feature.Buildable) (err error) {
@@ -116,9 +123,6 @@ func (f *CConsole) Prepare(app ctk.Application) {
 
 func (f *CConsole) Startup(display cdk.Display) {
 	f.CConsole.Startup(display)
-	display.CaptureCtrlC()
-
-	window := f.Window()
 
 	var err error
 	if f.curses, err = NewCurses(f); err != nil {
@@ -126,14 +130,14 @@ func (f *CConsole) Startup(display cdk.Display) {
 		display.RequestQuit()
 		time.Sleep(100 * time.Millisecond)
 		display.Destroy()
-		fmt.Fprintf(os.Stderr, "error constructing curses user interface: %v\n", err)
+		_, _ = fmt.Fprintf(os.Stderr, "error constructing curses user interface: %v\n", err)
 		os.Exit(1)
 		return
 	}
 
 	f.curses.Refresh()
 
-	window.Show()
+	f.Window().Show()
 	f.App().NotifyStartupComplete()
 }
 
@@ -143,15 +147,12 @@ func (f *CConsole) Resized(w, h int) {
 }
 
 func (f *CConsole) Refresh() {
-	// display := f.Display()
 	window := f.Window()
 
 	window.Freeze()
-	// f.vbox.Freeze()
 	window.GetVBox().Freeze()
 
 	defer func() {
-		// f.vbox.Thaw()
 		window.GetVBox().Thaw()
 		window.Thaw()
 		window.Resize()
