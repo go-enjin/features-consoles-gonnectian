@@ -73,8 +73,8 @@ github.com/go-curses/terminfo v1.0.0 h1:vU1G+oYsvSwmywZe6ZsoRQ8a8XDrzlM3rPeejUmp
 github.com/go-curses/terminfo v1.0.0/go.mod h1:3cAGarEfP6wdhHYmUI2xAx14cu+cfIIQYXehy2q/zUg=
 github.com/go-enjin/be v0.0.0-20230408162355-efadf2fb1637 h1:E5N8wrr5QWjuLKIRighcUN5ZkaPPglV57sgUjxfiiuY=
 github.com/go-enjin/be v0.0.0-20230408162355-efadf2fb1637/go.mod h1:+N7HuT3rCLsEqwQWOhZqIF1oW5HbNb8DedNdC03Ut/g=
-github.com/go-enjin/features-gonnectian v0.0.0-20230408162758-f10e482afac0 h1:2ovKSVc8pPH+aKtbtrtiWcOmcAjDyalgAJoWPsgpZY8=
-github.com/go-enjin/features-gonnectian v0.0.0-20230408162758-f10e482afac0/go.mod h1:Xa7Yd8Xv5Y77uyBuHqWWoG43louQcaLPLi/93imGdvc=
+github.com/go-enjin/features-gonnectian v0.0.0-20230414172527-2bb77c21a88f h1:V8PkpFzbzgfRG32LYKIz+VvBlfOQreUCEgcJKyt0tzc=
+github.com/go-enjin/features-gonnectian v0.0.0-20230414172527-2bb77c21a88f/go.mod h1:Xa7Yd8Xv5Y77uyBuHqWWoG43louQcaLPLi/93imGdvc=
 github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.0.0-20230408162547-851660070e0d h1:IFt9dpno+0iq6YIjVjZFlcVUMfpkJKzYA9S9MG+v2x8=
 github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.0.0-20230408162547-851660070e0d/go.mod h1:5O95ls9q6FIcmoOCtXAApoSFNfWYzr59baplwV2mlDY=
 github.com/go-enjin/github-com-djherbis-times v0.0.0-20221101184323-aeef8854ee8a h1:Qr7FpRTxEBnNJtyYj6TyVPs12bn45xSLFkygcSby1g4=
