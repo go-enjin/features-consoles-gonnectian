@@ -161,15 +161,16 @@ unlocal: enjenv
 	@${CMD} ${ENJENV_EXE} go-unlocal "github.com/go-curses/cdk"
 	@${CMD} ${ENJENV_EXE} go-unlocal "github.com/go-curses/ctk"
 
+define _make_be_update_pkgs
+$(foreach pkg,${GO_ENJIN_PKG} ${EXTRA_PKGS},$(shell echo "$(pkg)@latest"))
+endef
+
 be-update: export GOPROXY=direct
+be-update: PKG_LIST=$(call _make_be_update_pkgs)
 be-update: golang
 	@source "${ENJENV_PATH}/activate"; \
-		for PKG in ${GO_ENJIN_PKG} ${EXTRA_PKGS}; do \
-			echo "# go get $${PKG}@latest"; \
-			${CMD} go get \
-			$(call _build_tags) \
-			$${PKG}@latest; \
-		done
+		echo "# go get ${PKG_LIST}"; \
+		${CMD} go get $(call _build_tags) ${PKG_LIST}
 
 build: golang
 	@source "${ENJENV_PATH}/activate" \
