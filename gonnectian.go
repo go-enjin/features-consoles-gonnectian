@@ -26,10 +26,9 @@ import (
 	"github.com/go-curses/cdk/log"
 	"github.com/go-curses/ctk"
 
-	databaseFeature "github.com/go-enjin/be/features/database"
-	"github.com/go-enjin/be/pkg/database"
 	"github.com/go-enjin/be/pkg/feature"
 	"github.com/go-enjin/be/pkg/globals"
+	"github.com/go-enjin/github-com-craftamap-atlas-gonnect/store"
 )
 
 var (
@@ -48,12 +47,18 @@ type Console interface {
 
 type MakeConsole interface {
 	Make() feature.Console
+
+	SetGormDB(tag string) MakeConsole
+	SetTableName(table string) MakeConsole
 }
 
 type CConsole struct {
 	feature.CConsole
 
 	prefix string
+
+	dbTag   string
+	dbTable string
 
 	db *gorm.DB
 	ei feature.Internals
@@ -69,14 +74,18 @@ type CConsole struct {
 func New() MakeConsole {
 	f := new(CConsole)
 	f.Init(f)
+	f.dbTag = "gonnectian"
 	return f
 }
 
-func (f *CConsole) Depends() (deps feature.Tags) {
-	deps = feature.Tags{
-		databaseFeature.Tag,
-	}
-	return
+func (f *CConsole) SetGormDB(tag string) MakeConsole {
+	f.dbTag = tag
+	return f
+}
+
+func (f *CConsole) SetTableName(table string) MakeConsole {
+	f.dbTable = table
+	return f
 }
 
 func (f *CConsole) Tag() (tag feature.Tag) {
@@ -114,11 +123,7 @@ func (f *CConsole) Setup(ctx *cli.Context, ei feature.Internals) {
 
 func (f *CConsole) Prepare(app ctk.Application) {
 	f.CConsole.Prepare(app)
-
-	var err error
-	if f.db, err = database.Get(); err != nil {
-		log.FatalF("error getting database connection")
-	}
+	f.db = f.ei.MustDB(f.dbTag).(*gorm.DB)
 }
 
 func (f *CConsole) Startup(display cdk.Display) {
@@ -161,4 +166,14 @@ func (f *CConsole) Refresh() {
 	}()
 
 	f.curses.Refresh()
+}
+
+func (f *CConsole) tx() (tx *gorm.DB) {
+	tx = f.db.Scopes(func(tx *gorm.DB) *gorm.DB {
+		if f.dbTable == "" {
+			return tx.Table(store.DefaultTableName)
+		}
+		return tx.Table(f.dbTable)
+	})
+	return
 }

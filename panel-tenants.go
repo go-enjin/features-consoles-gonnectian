@@ -14,6 +14,7 @@ import (
 	"github.com/go-curses/cdk/lib/paint"
 	"github.com/go-curses/ctk"
 	"github.com/go-curses/ctk/lib/enums"
+
 	"github.com/go-enjin/be/pkg/log"
 	"github.com/go-enjin/github-com-craftamap-atlas-gonnect/store"
 )
@@ -125,7 +126,7 @@ func (t *TenantsPanel) Refresh() {
 	}
 
 	var tenants []*store.Tenant
-	t.curses.console.db.Find(&tenants)
+	t.curses.console.tx().Find(&tenants)
 	numTenants := len(tenants)
 
 	t.frame.SetLabel(fmt.Sprintf("%d tenants found:", numTenants))
@@ -268,7 +269,7 @@ func (t *TenantsPanel) toggleDebugHandler(data []interface{}, argv ...interface{
 					log.ErrorF("error encoding tenant context change: %v", err)
 				} else {
 					tenant.Context = b
-					if err := t.curses.console.db.Save(&tenant).Error; err != nil {
+					if err := t.curses.console.tx().Save(&tenant).Error; err != nil {
 						log.ErrorF("error saving tenant database change: %v", err)
 					}
 					t.curses.Refresh()
@@ -298,7 +299,7 @@ func (t *TenantsPanel) toggleUnlicensedHandler(data []interface{}, argv ...inter
 					log.ErrorF("error encoding tenant context change: %v", err)
 				} else {
 					tenant.Context = b
-					if err := t.curses.console.db.Save(&tenant).Error; err != nil {
+					if err := t.curses.console.tx().Save(&tenant).Error; err != nil {
 						log.ErrorF("error saving tenant database change: %v", err)
 					}
 					t.curses.Refresh()

@@ -11,6 +11,7 @@ import (
 	cenums "github.com/go-curses/cdk/lib/enums"
 	"github.com/go-curses/ctk"
 	"github.com/go-curses/ctk/lib/enums"
+
 	gonnectian "github.com/go-enjin/features-gonnectian"
 )
 
