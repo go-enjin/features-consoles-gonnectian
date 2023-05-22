@@ -15,8 +15,9 @@ import (
 	"github.com/go-curses/ctk"
 	"github.com/go-curses/ctk/lib/enums"
 
-	"github.com/go-enjin/be/pkg/log"
 	"github.com/go-enjin/github-com-craftamap-atlas-gonnect/store"
+
+	"github.com/go-enjin/be/pkg/log"
 )
 
 var _ Panel = (*TenantsPanel)(nil)

@@ -26,9 +26,10 @@ import (
 	"github.com/go-curses/cdk/log"
 	"github.com/go-curses/ctk"
 
+	"github.com/go-enjin/github-com-craftamap-atlas-gonnect/store"
+
 	"github.com/go-enjin/be/pkg/feature"
 	"github.com/go-enjin/be/pkg/globals"
-	"github.com/go-enjin/github-com-craftamap-atlas-gonnect/store"
 )
 
 var (
@@ -36,9 +37,8 @@ var (
 )
 
 const (
-	Tag     feature.Tag = "Gonnectian"
-	Name                = "gonnectian"
-	Version             = "0.2.0"
+	Tag     feature.Tag = "console-gonnectian"
+	Version             = "0.2.1"
 )
 
 type Console interface {
@@ -46,7 +46,7 @@ type Console interface {
 }
 
 type MakeConsole interface {
-	Make() feature.Console
+	Make() Console
 
 	SetGormDB(tag string) MakeConsole
 	SetTableName(table string) MakeConsole
@@ -61,7 +61,6 @@ type CConsole struct {
 	dbTable string
 
 	db *gorm.DB
-	ei feature.Internals
 
 	curses *CCurses
 
@@ -72,10 +71,18 @@ type CConsole struct {
 }
 
 func New() MakeConsole {
+	return NewTagged(Tag)
+}
+
+func NewTagged(tag feature.Tag) MakeConsole {
 	f := new(CConsole)
 	f.Init(f)
-	f.dbTag = "gonnectian"
+	f.ConsoleTag = tag
 	return f
+}
+
+func (f *CConsole) Init(this interface{}) {
+	f.CConsole.Init(this)
 }
 
 func (f *CConsole) SetGormDB(tag string) MakeConsole {
@@ -88,14 +95,13 @@ func (f *CConsole) SetTableName(table string) MakeConsole {
 	return f
 }
 
-func (f *CConsole) Tag() (tag feature.Tag) {
-	tag = Tag
-	return
-}
-
-func (f *CConsole) Name() (name string) {
-	name = Name
-	return
+func (f *CConsole) Make() (c Console) {
+	if f.dbTag == "" {
+		log.FatalDF(1, "%v feature requires .SetGormDB and .SetTableName", f.Tag())
+	} else if f.dbTable == "" {
+		log.FatalDF(1, "%v feature requires .SetTableName and .SetGormDB", f.Tag())
+	}
+	return f
 }
 
 func (f *CConsole) Title() (title string) {
@@ -107,23 +113,20 @@ func (f *CConsole) Title() (title string) {
 	return
 }
 
-func (f *CConsole) Make() (c feature.Console) {
-	return f.Self()
-}
-
 func (f *CConsole) Build(b feature.Buildable) (err error) {
 	log.DebugF("%v (v%v) build", Tag, Version)
 	return
 }
 
 func (f *CConsole) Setup(ctx *cli.Context, ei feature.Internals) {
+	f.CConsole.Setup(ctx, ei)
 	f.prefix = ctx.String("prefix")
-	f.ei = ei
 }
 
 func (f *CConsole) Prepare(app ctk.Application) {
 	f.CConsole.Prepare(app)
-	f.db = f.ei.MustDB(f.dbTag).(*gorm.DB)
+	f.db = f.Enjin.MustDB(f.dbTag).(*gorm.DB)
+	// no auto-migrate, manipulates features-gonnectian data
 }
 
 func (f *CConsole) Startup(display cdk.Display) {

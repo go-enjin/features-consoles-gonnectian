@@ -65,7 +65,7 @@ func (a *AppInfoPanel) Refresh() {
 
 	info := make(map[string]string)
 	numVersions := 0
-	for _, f := range a.curses.console.ei.Features() {
+	for _, f := range a.curses.console.Enjin.Features() {
 		if af, ok := f.(*gonnectian.CFeature); ok {
 			url := af.GetPluginInstallationURL()
 			dsc := af.GetPluginDescriptor()
