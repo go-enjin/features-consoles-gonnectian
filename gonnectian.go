@@ -1,4 +1,6 @@
-// Copyright (c) 2022  The Go-Enjin Authors
+//go:build curses || all
+
+// Copyright (c) 2023  The Go-Enjin Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
