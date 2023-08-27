@@ -23,6 +23,7 @@ import (
 	cenums "github.com/go-curses/cdk/lib/enums"
 	"github.com/go-curses/ctk"
 	"github.com/go-curses/ctk/lib/enums"
+	"github.com/go-enjin/be/pkg/feature"
 
 	gonnectian "github.com/go-enjin/features-gonnectian"
 )
@@ -77,18 +78,16 @@ func (a *AppInfoPanel) Refresh() {
 
 	info := make(map[string]string)
 	numVersions := 0
-	for _, f := range a.curses.console.Enjin.Features() {
-		if af, ok := f.(*gonnectian.CFeature); ok {
-			url := af.GetPluginInstallationURL()
-			dsc := af.GetPluginDescriptor()
-			if _, ok := info[dsc.Name]; !ok {
-				info[dsc.Name] = ""
-			} else {
-				info[dsc.Name] += "\n"
-			}
-			info[dsc.Name] += fmt.Sprintf(" - [%v] %v", dsc.Version, url)
-			numVersions += 1
+	for _, f := range feature.FilterTyped[gonnectian.Feature](a.curses.console.Enjin.Features().List()) {
+		url := f.GetPluginInstallationURL()
+		dsc := f.GetPluginDescriptor()
+		if _, ok := info[dsc.Name]; !ok {
+			info[dsc.Name] = ""
+		} else {
+			info[dsc.Name] += "\n"
 		}
+		info[dsc.Name] += fmt.Sprintf(" - [%v] %v", dsc.Version, url)
+		numVersions += 1
 	}
 	var infoText string
 	for k, v := range info {
