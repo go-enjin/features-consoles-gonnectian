@@ -79,6 +79,7 @@ func New() MakeConsole {
 func NewTagged(tag feature.Tag) MakeConsole {
 	f := new(CConsole)
 	f.Init(f)
+	f.PackageTag = Tag
 	f.ConsoleTag = tag
 	return f
 }
