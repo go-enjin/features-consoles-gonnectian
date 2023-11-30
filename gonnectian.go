@@ -59,7 +59,7 @@ type CConsole struct {
 
 	prefix string
 
-	dbTag   string
+	dbName  string
 	dbTable string
 
 	db *gorm.DB
@@ -89,7 +89,7 @@ func (f *CConsole) Init(this interface{}) {
 }
 
 func (f *CConsole) SetGormDB(tag string) MakeConsole {
-	f.dbTag = tag
+	f.dbName = tag
 	return f
 }
 
@@ -99,7 +99,7 @@ func (f *CConsole) SetTableName(table string) MakeConsole {
 }
 
 func (f *CConsole) Make() (c Console) {
-	if f.dbTag == "" {
+	if f.dbName == "" {
 		log.FatalDF(1, "%v feature requires .SetGormDB and .SetTableName", f.Tag())
 	} else if f.dbTable == "" {
 		log.FatalDF(1, "%v feature requires .SetTableName and .SetGormDB", f.Tag())
@@ -117,6 +117,12 @@ func (f *CConsole) Title() (title string) {
 }
 
 func (f *CConsole) Build(b feature.Buildable) (err error) {
+	if err = f.CConsole.Build(b); err != nil {
+		return
+	} else if f.dbName == "" || f.dbTable == "" {
+		err = fmt.Errorf("%q feature requires .SetGormDB and .SetTableName", f.Tag())
+		return
+	}
 	log.DebugF("%v (v%v) build", Tag, Version)
 	return
 }
@@ -128,7 +134,12 @@ func (f *CConsole) Setup(ctx *cli.Context, ei feature.Internals) {
 
 func (f *CConsole) Prepare(app ctk.Application) {
 	f.CConsole.Prepare(app)
-	f.db = f.Enjin.MustDB(f.dbTag).(*gorm.DB)
+	var ok bool
+	if v, err := f.Enjin.DB(f.dbName); err != nil {
+		log.PanicF("error getting enjin db %q: %v", f.dbName, err)
+	} else if f.db, ok = v.(*gorm.DB); !ok {
+		log.PanicF("error preparing enjin db; expected *gorm.DB, received: %T", v)
+	}
 	// no auto-migrate, manipulates features-gonnectian data
 }
 
