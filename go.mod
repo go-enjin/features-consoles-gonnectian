@@ -7,9 +7,9 @@ toolchain go1.21.0
 require (
 	github.com/go-curses/cdk v0.5.16
 	github.com/go-curses/ctk v0.5.8
-	github.com/go-enjin/be v0.5.4
-	github.com/go-enjin/features-gonnectian v0.5.4
-	github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.5.4
+	github.com/go-enjin/be v0.5.5
+	github.com/go-enjin/features-gonnectian v0.5.5
+	github.com/go-enjin/github-com-craftamap-atlas-gonnect v0.5.5
 	github.com/urfave/cli/v2 v2.26.0
 	gorm.io/gorm v1.25.5
 )
